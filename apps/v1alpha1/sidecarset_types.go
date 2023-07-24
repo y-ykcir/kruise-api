@@ -48,15 +48,21 @@ type SidecarSetSpec struct {
 	// InitContainers is the list of init containers to be injected into the selected pod
 	// We will inject those containers by their name in ascending order
 	// We only inject init containers when a new pod is created, it does not apply to any existing pod
-	InitContainers []SidecarContainer `json:"initContainers,omitempty"`
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	InitContainers []SidecarContainer `json:"initContainers,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// Containers is the list of sidecar containers to be injected into the selected pod
-	Containers []SidecarContainer `json:"containers,omitempty"`
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	Containers []SidecarContainer `json:"containers,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// List of volumes that can be mounted by sidecar containers
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +kubebuilder:validation:Schemaless
-	Volumes []corev1.Volume `json:"volumes,omitempty"`
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	Volumes []corev1.Volume `json:"volumes,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// The sidecarset updateStrategy to use to replace existing pods with new ones.
 	UpdateStrategy SidecarSetUpdateStrategy `json:"updateStrategy,omitempty"`
@@ -128,7 +134,9 @@ type SidecarContainer struct {
 
 	// TransferEnv will transfer env info from other container
 	// SourceContainerName is pod.spec.container[x].name; EnvName is pod.spec.container[x].Env.name
-	TransferEnv []TransferEnvVar `json:"transferEnv,omitempty"`
+	// +patchMergeKey=sourceContainerName
+	// +patchStrategy=merge
+	TransferEnv []TransferEnvVar `json:"transferEnv,omitempty" patchStrategy:"merge" patchMergeKey:"sourceContainerName"`
 }
 
 type ShareVolumePolicy struct {
