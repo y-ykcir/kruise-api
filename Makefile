@@ -1,3 +1,4 @@
+CURRENT_DIR=$(shell pwd)
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
 GOBIN=$(shell go env GOPATH)/bin
@@ -22,6 +23,16 @@ else
 	$(call go-get-tool,$(CONTROLLER_GEN),sigs.k8s.io/controller-tools/cmd/controller-gen@v0.7.0)
 endif
 
+OPENAPI_GEN = $(shell pwd)/bin/openapi-gen
+module=$(shell go list -f '{{.Module}}' k8s.io/kube-openapi/cmd/openapi-gen | awk '{print $$1}')
+module_version=$(shell go list -m $(module) | awk '{print $$NF}' | head -1)
+openapi-gen: ## Download openapi-gen locally if necessary.
+ifeq ("$(shell command -v $(OPENAPI_GEN) 2> /dev/null)", "")
+	$(call go-get-tool,$(OPENAPI_GEN),k8s.io/kube-openapi/cmd/openapi-gen@$(module_version))
+else
+	@echo "openapi-gen is already installed."
+endif
+
 # go-get-tool will 'go get' any package $2 and install it to $1.
 PROJECT_DIR := $(shell dirname $(abspath $(lastword $(MAKEFILE_LIST))))
 define go-get-tool
@@ -35,3 +46,12 @@ GOBIN=$(PROJECT_DIR)/bin go install $(2) ;\
 rm -rf $$TMP_DIR ;\
 }
 endef
+
+.PHONY: gen-kruise-openapi
+gen-kruise-openapi: openapi-gen
+	$(OPENAPI_GEN) \
+	  	--go-header-file ./hack/boilerplate.go.txt \
+		--input-dirs ./apps/v1alpha1,./apps/pub,./apps/v1beta1 \
+		--output-package ./pkg/kruise/ \
+  		--report-filename ./pkg/kruise/violation_exceptions.list \
+  		-o $(CURRENT_DIR)
