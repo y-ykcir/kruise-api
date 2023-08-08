@@ -5834,6 +5834,193 @@
                     "version": "v1beta1"
                 }
             ]
+        },
+        "io.kruise.policy.v1alpha1.PodUnavailableBudget": {
+            "description": "PodUnavailableBudget is the Schema for the podunavailablebudgets API",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "type": "string"
+                },
+                "metadata": {
+                    "default": {},
+                    "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+                },
+                "spec": {
+                    "default": {},
+                    "$ref": "#/definitions/io.kruise.policy.v1alpha1.PodUnavailableBudgetSpec"
+                },
+                "status": {
+                    "default": {},
+                    "$ref": "#/definitions/io.kruise.policy.v1alpha1.PodUnavailableBudgetStatus"
+                }
+            },
+            "x-kubernetes-group-version-kind": [
+                {
+                    "group": "policy.kruise.io",
+                    "kind": "PodUnavailableBudget",
+                    "version": "v1alpha1"
+                }
+            ]
+        },
+        "io.kruise.policy.v1alpha1.PodUnavailableBudgetList": {
+            "description": "PodUnavailableBudgetList contains a list of PodUnavailableBudget",
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "properties": {
+                "apiVersion": {
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "default": {},
+                        "$ref": "#/definitions/io.kruise.policy.v1alpha1.PodUnavailableBudget"
+                    }
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "type": "string"
+                },
+                "metadata": {
+                    "default": {},
+                    "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+                }
+            },
+            "x-kubernetes-group-version-kind": [
+                {
+                    "group": "policy.kruise.io",
+                    "kind": "PodUnavailableBudgetList",
+                    "version": "v1alpha1"
+                }
+            ]
+        },
+        "io.kruise.policy.v1alpha1.PodUnavailableBudgetSpec": {
+            "description": "PodUnavailableBudgetSpec defines the desired state of PodUnavailableBudget",
+            "type": "object",
+            "properties": {
+                "maxUnavailable": {
+                    "description": "Delete pod, evict pod or update pod specification is allowed if at most \"maxUnavailable\" pods selected by \"selector\" or \"targetRef\"  are unavailable after the above operation for pod. MaxUnavailable and MinAvailable are mutually exclusive, MaxUnavailable is priority to take effect",
+                    "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+                },
+                "minAvailable": {
+                    "description": "Delete pod, evict pod or update pod specification is allowed if at least \"minAvailable\" pods selected by \"selector\" or \"targetRef\" will still be available after the above operation for pod.",
+                    "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+                },
+                "selector": {
+                    "description": "Selector label query over pods managed by the budget",
+                    "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+                },
+                "targetRef": {
+                    "description": "TargetReference contains enough information to let you identify an workload for PodUnavailableBudget Selector and TargetReference are mutually exclusive, TargetReference is priority to take effect",
+                    "$ref": "#/definitions/io.kruise.policy.v1alpha1.TargetReference"
+                }
+            },
+            "x-kubernetes-group-version-kind": [
+                {
+                    "group": "policy.kruise.io",
+                    "kind": "PodUnavailableBudgetSpec",
+                    "version": "v1alpha1"
+                }
+            ]
+        },
+        "io.kruise.policy.v1alpha1.PodUnavailableBudgetStatus": {
+            "description": "PodUnavailableBudgetStatus defines the observed state of PodUnavailableBudget",
+            "type": "object",
+            "required": [
+                "unavailableAllowed",
+                "currentAvailable",
+                "desiredAvailable",
+                "totalReplicas"
+            ],
+            "properties": {
+                "currentAvailable": {
+                    "description": "CurrentAvailable current number of available pods",
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 0
+                },
+                "desiredAvailable": {
+                    "description": "DesiredAvailable minimum desired number of available pods",
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 0
+                },
+                "disruptedPods": {
+                    "description": "DisruptedPods contains information about pods whose eviction or deletion was processed by the API handler but has not yet been observed by the PodUnavailableBudget.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "default": {},
+                        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+                    }
+                },
+                "observedGeneration": {
+                    "description": "Most recent generation observed when updating this PUB status. UnavailableAllowed and other status information is valid only if observedGeneration equals to PUB's object generation.",
+                    "type": "integer",
+                    "format": "int64",
+                    "default": 0
+                },
+                "totalReplicas": {
+                    "description": "TotalReplicas total number of pods counted by this unavailable budget",
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 0
+                },
+                "unavailableAllowed": {
+                    "description": "UnavailableAllowed number of pod unavailable that are currently allowed",
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 0
+                },
+                "unavailablePods": {
+                    "description": "UnavailablePods contains information about pods whose specification changed(inplace-update pod), once pod is available(consistent and ready) again, it will be removed from the list.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "default": {},
+                        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+                    }
+                }
+            },
+            "x-kubernetes-group-version-kind": [
+                {
+                    "group": "policy.kruise.io",
+                    "kind": "PodUnavailableBudgetStatus",
+                    "version": "v1alpha1"
+                }
+            ]
+        },
+        "io.kruise.policy.v1alpha1.TargetReference": {
+            "description": "TargetReference contains enough information to let you identify an workload for PodUnavailableBudget",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "description": "API version of the referent.",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "Kind of the referent.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the referent.",
+                    "type": "string"
+                }
+            },
+            "x-kubernetes-group-version-kind": [
+                {
+                    "group": "policy.kruise.io",
+                    "kind": "TargetReference",
+                    "version": "v1alpha1"
+                }
+            ]
         }
     }
 }

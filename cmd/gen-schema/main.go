@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
 	"io"
 	"net/http"
 	"os"
@@ -14,7 +15,9 @@ import (
 	kubeopenapiutil "k8s.io/kube-openapi/pkg/util"
 	"k8s.io/kube-openapi/pkg/validation/spec"
 
+	"github.com/openkruise/kruise-api/pkg/apis"
 	"github.com/openkruise/kruise-api/pkg/kruise"
+	"github.com/openkruise/kruise-api/pkg/rollouts"
 )
 
 var K8SVersions = []int{18, 21, 24}
@@ -66,7 +69,9 @@ func generateOpenApiSchema(outputPath string, GetOpenAPIDefinitions func(ref com
 	// kruise.io group. Kustomize does not care about the name as long as all the links match up and the `x-kubernetes-group-version-kind`
 	// metadata is correct
 	var kruiseMappings = map[string]string{
-		"github.com/openkruise/kruise-api/apps": "apps.kruise.io",
+		"github.com/openkruise/kruise-api/apps":     "apps.kruise.io",
+		"github.com/openkruise/kruise-api/rollouts": "rollouts.kruise.io",
+		"github.com/openkruise/kruise-api/policy":   "policy.kruise.io",
 	}
 
 	defMap := GetOpenAPIDefinitions(func(path string) spec.Ref {
@@ -167,7 +172,9 @@ func downloadK8SDefinitions(version uint, k8sGvkMapping *k8sGvkMapping) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -185,5 +192,9 @@ func downloadK8SDefinitions(version uint, k8sGvkMapping *k8sGvkMapping) error {
 // Generate CRD spec for Resources in OpenKruise
 func main() {
 	err := generateOpenApiSchema("schema/openkruise_kruise_kustomize_schema.json", kruise.GetOpenAPIDefinitions)
+	checkErr(err)
+	err = generateOpenApiSchema("schema/openkruise_rollouts_kustomize_schema.json", rollouts.GetOpenAPIDefinitions)
+	checkErr(err)
+	err = generateOpenApiSchema("schema/openkruise_all_k8s_kustomize_schema.json", apis.GetOpenAPIDefinitions)
 	checkErr(err)
 }
