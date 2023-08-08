@@ -10,8 +10,10 @@ spec:
     image: centos:6.8
     name: sidecar1
     volumeMounts:
+    - mountPath: /var/log2
+      name: log-volume2
     - mountPath: /var/log
-      name: log-volume
+      name: log-volume1
   - command:
     - sleep
     - 102d
