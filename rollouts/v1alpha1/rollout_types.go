@@ -153,7 +153,9 @@ type HttpRouteMatch struct {
 	// ANDed together, meaning, a request must match all the specified headers
 	// to select the route.
 	// +kubebuilder:validation:MaxItems=16
-	Headers []gatewayv1alpha2.HTTPHeaderMatch `json:"headers,omitempty"`
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	Headers []gatewayv1alpha2.HTTPHeaderMatch `json:"headers,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 }
 
 // RolloutPause defines a pause stage for a rollout
@@ -206,7 +208,9 @@ type RolloutStatus struct {
 	CanaryStatus *CanaryStatus `json:"canaryStatus,omitempty"`
 	// Conditions a list of conditions a rollout can have.
 	// +optional
-	Conditions []RolloutCondition `json:"conditions,omitempty"`
+	// +patchMergeKey=type
+	// +patchStrategy=merge
+	Conditions []RolloutCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type"`
 	// +optional
 	//BlueGreenStatus *BlueGreenStatus `json:"blueGreenStatus,omitempty"`
 	// Phase is the rollout phase.
