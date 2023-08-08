@@ -47,11 +47,37 @@ rm -rf $$TMP_DIR ;\
 }
 endef
 
+.PHONY: gen-schema-only
+gen-schema-only:
+	go run cmd/gen-schema/main.go
+
+.PHONY: gen-openapi-schema
+gen-openapi-schema: gen-all-openapi gen-kruise-openapi gen-rollouts-openapi
+	go run cmd/gen-schema/main.go
+
+.PHONY: gen-all-openapi
+gen-all-openapi: openapi-gen
+	$(OPENAPI_GEN) \
+	  	--go-header-file ./hack/boilerplate.go.txt \
+		--input-dirs github.com/openkruise/kruise-api/apps/v1alpha1,github.com/openkruise/kruise-api/apps/pub,github.com/openkruise/kruise-api/apps/v1beta1,github.com/openkruise/kruise-api/policy/v1alpha1,github.com/openkruise/kruise-api/rollouts/v1alpha1,k8s.io/api/admission/v1,k8s.io/api/admissionregistration/v1,k8s.io/api/admissionregistration/v1beta1,k8s.io/api/authentication/v1,k8s.io/api/apps/v1,k8s.io/api/apps/v1beta1,k8s.io/api/apps/v1beta2,k8s.io/api/autoscaling/v1,k8s.io/api/batch/v1,k8s.io/api/batch/v1beta1,k8s.io/api/certificates/v1beta1,k8s.io/api/certificates/v1,k8s.io/api/core/v1,k8s.io/api/extensions/v1beta1,k8s.io/api/networking/v1,k8s.io/api/networking/v1beta1,k8s.io/api/policy/v1,k8s.io/api/policy/v1beta1,k8s.io/api/rbac/v1,k8s.io/api/rbac/v1alpha1,k8s.io/api/storage/v1,k8s.io/api/storage/v1alpha1,k8s.io/api/storage/v1beta1 \
+		--output-package ./pkg/apis \
+  		--report-filename ./pkg/apis/violation_exceptions.list \
+  		-o $(CURRENT_DIR)
+
 .PHONY: gen-kruise-openapi
 gen-kruise-openapi: openapi-gen
 	$(OPENAPI_GEN) \
-	  	--go-header-file ./hack/boilerplate.go.txt \
-		--input-dirs ./apps/v1alpha1,./apps/pub,./apps/v1beta1 \
-		--output-package ./pkg/kruise/ \
-  		--report-filename ./pkg/kruise/violation_exceptions.list \
+	  	--go-header-file hack/boilerplate.go.txt \
+		--input-dirs github.com/openkruise/kruise-api/apps/v1alpha1,github.com/openkruise/kruise-api/apps/pub,github.com/openkruise/kruise-api/apps/v1beta1,github.com/openkruise/kruise-api/policy/v1alpha1 \
+		--output-package pkg/kruise/ \
+  		--report-filename pkg/kruise/violation_exceptions.list \
+  		-o $(CURRENT_DIR)
+
+.PHONY: gen-rollouts-openapi
+gen-rollouts-openapi: openapi-gen
+	$(OPENAPI_GEN) \
+	  	--go-header-file hack/boilerplate.go.txt \
+		--input-dirs github.com/openkruise/kruise-api/rollouts/v1alpha1 \
+		--output-package pkg/rollouts/ \
+  		--report-filename pkg/rollouts/violation_exceptions.list \
   		-o $(CURRENT_DIR)

@@ -62,3 +62,4 @@ API rule violation: names_match,github.com/openkruise/kruise-api/apps/v1alpha1,P
 API rule violation: names_match,github.com/openkruise/kruise-api/apps/v1alpha1,ResourceDistributionCondition,FailedNamespaces
 API rule violation: names_match,github.com/openkruise/kruise-api/apps/v1alpha1,RollingUpdateDaemonSet,Type
 API rule violation: names_match,github.com/openkruise/kruise-api/apps/v1alpha1,WorkloadSpreadSpec,TargetReference
+API rule violation: names_match,github.com/openkruise/kruise-api/policy/v1alpha1,PodUnavailableBudgetSpec,TargetReference

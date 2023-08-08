@@ -192,6 +192,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/openkruise/kruise-api/apps/v1beta1.StatefulSetStatus":                               schema_openkruise_kruise_api_apps_v1beta1_StatefulSetStatus(ref),
 		"github.com/openkruise/kruise-api/apps/v1beta1.StatefulSetUpdateStrategy":                       schema_openkruise_kruise_api_apps_v1beta1_StatefulSetUpdateStrategy(ref),
 		"github.com/openkruise/kruise-api/apps/v1beta1.UnorderedUpdateStrategy":                         schema_openkruise_kruise_api_apps_v1beta1_UnorderedUpdateStrategy(ref),
+		"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudget":                         schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudget(ref),
+		"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetList":                     schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetList(ref),
+		"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetSpec":                     schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetSpec(ref),
+		"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetStatus":                   schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetStatus(ref),
+		"github.com/openkruise/kruise-api/policy/v1alpha1.TargetReference":                              schema_openkruise_kruise_api_policy_v1alpha1_TargetReference(ref),
 	}
 }
 
@@ -8201,5 +8206,260 @@ func schema_openkruise_kruise_api_apps_v1beta1_UnorderedUpdateStrategy(ref commo
 		},
 		Dependencies: []string{
 			"github.com/openkruise/kruise-api/apps/pub.UpdatePriorityStrategy"},
+	}
+}
+
+func schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudget(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PodUnavailableBudget is the Schema for the podunavailablebudgets API",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetSpec", "github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudgetStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PodUnavailableBudgetList contains a list of PodUnavailableBudget",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudget"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/openkruise/kruise-api/policy/v1alpha1.PodUnavailableBudget", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PodUnavailableBudgetSpec defines the desired state of PodUnavailableBudget",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"selector": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Selector label query over pods managed by the budget",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector"),
+						},
+					},
+					"targetRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TargetReference contains enough information to let you identify an workload for PodUnavailableBudget Selector and TargetReference are mutually exclusive, TargetReference is priority to take effect",
+							Ref:         ref("github.com/openkruise/kruise-api/policy/v1alpha1.TargetReference"),
+						},
+					},
+					"maxUnavailable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Delete pod, evict pod or update pod specification is allowed if at most \"maxUnavailable\" pods selected by \"selector\" or \"targetRef\"  are unavailable after the above operation for pod. MaxUnavailable and MinAvailable are mutually exclusive, MaxUnavailable is priority to take effect",
+							Ref:         ref("k8s.io/apimachinery/pkg/util/intstr.IntOrString"),
+						},
+					},
+					"minAvailable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Delete pod, evict pod or update pod specification is allowed if at least \"minAvailable\" pods selected by \"selector\" or \"targetRef\" will still be available after the above operation for pod.",
+							Ref:         ref("k8s.io/apimachinery/pkg/util/intstr.IntOrString"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/openkruise/kruise-api/policy/v1alpha1.TargetReference", "k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector", "k8s.io/apimachinery/pkg/util/intstr.IntOrString"},
+	}
+}
+
+func schema_openkruise_kruise_api_policy_v1alpha1_PodUnavailableBudgetStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PodUnavailableBudgetStatus defines the observed state of PodUnavailableBudget",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"observedGeneration": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Most recent generation observed when updating this PUB status. UnavailableAllowed and other status information is valid only if observedGeneration equals to PUB's object generation.",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"disruptedPods": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisruptedPods contains information about pods whose eviction or deletion was processed by the API handler but has not yet been observed by the PodUnavailableBudget.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+									},
+								},
+							},
+						},
+					},
+					"unavailablePods": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UnavailablePods contains information about pods whose specification changed(inplace-update pod), once pod is available(consistent and ready) again, it will be removed from the list.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+									},
+								},
+							},
+						},
+					},
+					"unavailableAllowed": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UnavailableAllowed number of pod unavailable that are currently allowed",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"currentAvailable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CurrentAvailable current number of available pods",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"desiredAvailable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DesiredAvailable minimum desired number of available pods",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"totalReplicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TotalReplicas total number of pods counted by this unavailable budget",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"unavailableAllowed", "currentAvailable", "desiredAvailable", "totalReplicas"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_openkruise_kruise_api_policy_v1alpha1_TargetReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TargetReference contains enough information to let you identify an workload for PodUnavailableBudget",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "API version of the referent.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind of the referent.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the referent.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
 	}
 }
