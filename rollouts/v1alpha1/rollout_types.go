@@ -153,9 +153,7 @@ type HttpRouteMatch struct {
 	// ANDed together, meaning, a request must match all the specified headers
 	// to select the route.
 	// +kubebuilder:validation:MaxItems=16
-	// +patchMergeKey=name
-	// +patchStrategy=merge
-	Headers []gatewayv1alpha2.HTTPHeaderMatch `json:"headers,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	Headers []gatewayv1alpha2.HTTPHeaderMatch `json:"headers,omitempty"`
 }
 
 // RolloutPause defines a pause stage for a rollout

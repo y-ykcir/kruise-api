@@ -474,9 +474,7 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.k8s.sigs.gateway-api.apis.v1alpha2.HTTPHeaderMatch"
-                    },
-                    "x-kubernetes-patch-merge-key": "name",
-                    "x-kubernetes-patch-strategy": "merge"
+                    }
                 }
             },
             "x-kubernetes-group-version-kind": [

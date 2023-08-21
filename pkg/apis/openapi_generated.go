@@ -9692,12 +9692,6 @@ func schema_openkruise_kruise_api_rollouts_v1alpha1_HttpRouteMatch(ref common.Re
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"headers": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "name",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Headers specifies HTTP request header matchers. Multiple match values are ANDed together, meaning, a request must match all the specified headers to select the route.",
 							Type:        []string{"array"},

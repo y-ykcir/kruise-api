@@ -5,7 +5,7 @@ resources:
   - cloneset.yaml
 
 openapi:
-  path: ../../../schema/openkruise_all_k8s_kustomize_schema.json
+  path: ../../../../schema/openkruise_all_k8s_kustomize_schema.json
 
 patchesStrategicMerge:
   - |-
