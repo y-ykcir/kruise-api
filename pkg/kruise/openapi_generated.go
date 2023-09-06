@@ -3451,12 +3451,6 @@ func schema_openkruise_kruise_api_apps_v1alpha1_ImageSpec(ref common.ReferenceCa
 						},
 					},
 					"tags": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "tag",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Tags is a list of versions of this image",
 							Type:        []string{"array"},
@@ -3584,12 +3578,6 @@ func schema_openkruise_kruise_api_apps_v1alpha1_ImageTagSpec(ref common.Referenc
 						},
 					},
 					"ownerReferences": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "name",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "List of objects depended by this object. If this image is managed by a controller, then an entry in this list will point to this controller.",
 							Type:        []string{"array"},
@@ -4469,12 +4457,6 @@ func schema_openkruise_kruise_api_apps_v1alpha1_PodProbe(ref common.ReferenceCal
 						},
 					},
 					"probes": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "name",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Custom container probe, supports Exec, Tcp, and returns the result to Pod yaml",
 							Type:        []string{"array"},
@@ -4694,12 +4676,6 @@ func schema_openkruise_kruise_api_apps_v1alpha1_PodProbeStatus(ref common.Refere
 						},
 					},
 					"probeStates": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "name",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "pod probe result",
 							Type:        []string{"array"},
@@ -5216,6 +5192,12 @@ func schema_openkruise_kruise_api_apps_v1alpha1_ResourceDistributionTargetNamesp
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"list": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "name",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
 							Items: &spec.SchemaOrArray{
@@ -6018,6 +6000,12 @@ func schema_openkruise_kruise_api_apps_v1alpha1_SidecarSetSpec(ref common.Refere
 						},
 					},
 					"imagePullSecrets": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "name",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Description: "List of the names of secrets required by pulling sidecar container images",
 							Type:        []string{"array"},
@@ -7068,6 +7056,12 @@ func schema_openkruise_kruise_api_apps_v1alpha1_UnitedDeploymentStatus(ref commo
 						},
 					},
 					"conditions": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "type",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Represents the latest available observations of a UnitedDeployment's current state.",
 							Type:        []string{"array"},
@@ -7492,6 +7486,12 @@ func schema_openkruise_kruise_api_apps_v1alpha1_WorkloadSpreadStatus(ref common.
 						},
 					},
 					"subsetStatuses": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "name",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Description: "Contains the status of each subset. Each element in this array represents one subset",
 							Type:        []string{"array"},

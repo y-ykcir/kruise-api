@@ -2411,9 +2411,7 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.ImageTagSpec"
-                    },
-                    "x-kubernetes-patch-merge-key": "tag",
-                    "x-kubernetes-patch-strategy": "merge"
+                    }
                 }
             },
             "x-kubernetes-group-version-kind": [
@@ -2500,9 +2498,7 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
-                    },
-                    "x-kubernetes-patch-merge-key": "name",
-                    "x-kubernetes-patch-strategy": "merge"
+                    }
                 },
                 "pullPolicy": {
                     "description": "PullPolicy is an optional field to set parameters of the pulling task. If not specified, the system will use the default values.",
@@ -3150,9 +3146,7 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.ContainerProbe"
-                    },
-                    "x-kubernetes-patch-merge-key": "name",
-                    "x-kubernetes-patch-strategy": "merge"
+                    }
                 },
                 "uid": {
                     "description": "pod uid",
@@ -3317,9 +3311,7 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.ContainerProbeState"
-                    },
-                    "x-kubernetes-patch-merge-key": "name",
-                    "x-kubernetes-patch-strategy": "merge"
+                    }
                 },
                 "uid": {
                     "description": "pod uid",
@@ -3702,7 +3694,9 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.ResourceDistributionNamespace"
-                    }
+                    },
+                    "x-kubernetes-patch-merge-key": "name",
+                    "x-kubernetes-patch-strategy": "merge"
                 }
             },
             "x-kubernetes-group-version-kind": [
@@ -4189,7 +4183,9 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
-                    }
+                    },
+                    "x-kubernetes-patch-merge-key": "name",
+                    "x-kubernetes-patch-strategy": "merge"
                 },
                 "initContainers": {
                     "description": "InitContainers is the list of init containers to be injected into the selected pod We will inject those containers by their name in ascending order We only inject init containers when a new pod is created, it does not apply to any existing pod",
@@ -4960,7 +4956,9 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.UnitedDeploymentCondition"
-                    }
+                    },
+                    "x-kubernetes-patch-merge-key": "type",
+                    "x-kubernetes-patch-strategy": "merge"
                 },
                 "currentRevision": {
                     "description": "CurrentRevision, if not empty, indicates the current version of the UnitedDeployment.",
@@ -5322,7 +5320,9 @@
                     "items": {
                         "default": {},
                         "$ref": "#/definitions/io.kruise.apps.v1alpha1.WorkloadSpreadSubsetStatus"
-                    }
+                    },
+                    "x-kubernetes-patch-merge-key": "name",
+                    "x-kubernetes-patch-strategy": "merge"
                 }
             },
             "x-kubernetes-group-version-kind": [

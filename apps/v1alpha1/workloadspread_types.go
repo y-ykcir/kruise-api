@@ -128,8 +128,10 @@ type WorkloadSpreadStatus struct {
 	//ObservedWorkloadReplicas int32 `json:"observedWorkloadReplicas"`
 
 	// Contains the status of each subset. Each element in this array represents one subset
+	// +patchMergeKey=name
+	// +patchStrategy=merge
 	// +optional
-	SubsetStatuses []WorkloadSpreadSubsetStatus `json:"subsetStatuses,omitempty"`
+	SubsetStatuses []WorkloadSpreadSubsetStatus `json:"subsetStatuses,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 }
 
 type WorkloadSpreadSubsetConditionType string

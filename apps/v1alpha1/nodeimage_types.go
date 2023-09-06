@@ -37,9 +37,7 @@ type ImageSpec struct {
 	PullSecrets []ReferenceObject `json:"pullSecrets,omitempty"`
 
 	// Tags is a list of versions of this image
-	// +patchMergeKey=tag
-	// +patchStrategy=merge
-	Tags []ImageTagSpec `json:"tags"  patchStrategy:"merge" patchMergeKey:"tag"`
+	Tags []ImageTagSpec `json:"tags"`
 }
 
 // ReferenceObject comprises a resource name, with a mandatory namespace,
@@ -65,10 +63,8 @@ type ImageTagSpec struct {
 
 	// List of objects depended by this object. If this image is managed by a controller,
 	// then an entry in this list will point to this controller.
-	// +patchMergeKey=name
-	// +patchStrategy=merge
 	// +optional
-	OwnerReferences []v1.ObjectReference `json:"ownerReferences,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	OwnerReferences []v1.ObjectReference `json:"ownerReferences,omitempty"`
 
 	// An opaque value that represents the internal version of this tag that can
 	// be used by clients to determine when objects have changed. May be used for optimistic

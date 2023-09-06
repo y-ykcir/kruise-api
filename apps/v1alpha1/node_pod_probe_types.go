@@ -33,9 +33,7 @@ type PodProbe struct {
 	// pod uid
 	UID string `json:"uid"`
 	// Custom container probe, supports Exec, Tcp, and returns the result to Pod yaml
-	// +patchMergeKey=name
-	// +patchStrategy=merge
-	Probes []ContainerProbe `json:"probes,omitempty"  patchStrategy:"merge" patchMergeKey:"name"`
+	Probes []ContainerProbe `json:"probes,omitempty"`
 }
 
 type ContainerProbe struct {
@@ -60,9 +58,7 @@ type PodProbeStatus struct {
 	// pod uid
 	UID string `json:"uid"`
 	// pod probe result
-	// +patchMergeKey=name
-	// +patchStrategy=merge
-	ProbeStates []ContainerProbeState `json:"probeStates,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	ProbeStates []ContainerProbeState `json:"probeStates,omitempty"`
 }
 
 type ContainerProbeState struct {

@@ -71,7 +71,9 @@ type SidecarSetSpec struct {
 	InjectionStrategy SidecarSetInjectionStrategy `json:"injectionStrategy,omitempty"`
 
 	// List of the names of secrets required by pulling sidecar container images
-	ImagePullSecrets []corev1.LocalObjectReference `json:"imagePullSecrets,omitempty"`
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	ImagePullSecrets []corev1.LocalObjectReference `json:"imagePullSecrets,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// RevisionHistoryLimit indicates the maximum quantity of stored revisions about the SidecarSet.
 	// default value is 10
