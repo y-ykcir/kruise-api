@@ -720,7 +720,7 @@ func schema_openkruise_kruise_api_rollouts_v1alpha1_HttpRouteMatch(ref common.Re
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("sigs.k8s.io/gateway-api/apis/v1alpha2.HTTPHeaderMatch"),
+										Ref:     ref("sigs.k8s.io/gateway-api/apis/v1beta1.HTTPHeaderMatch"),
 									},
 								},
 							},
@@ -730,7 +730,7 @@ func schema_openkruise_kruise_api_rollouts_v1alpha1_HttpRouteMatch(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"sigs.k8s.io/gateway-api/apis/v1alpha2.HTTPHeaderMatch"},
+			"sigs.k8s.io/gateway-api/apis/v1beta1.HTTPHeaderMatch"},
 	}
 }
 

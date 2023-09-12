@@ -473,7 +473,7 @@
                     "type": "array",
                     "items": {
                         "default": {},
-                        "$ref": "#/definitions/io.k8s.sigs.gateway-api.apis.v1alpha2.HTTPHeaderMatch"
+                        "$ref": "#/definitions/io.k8s.sigs.gateway-api.apis.v1beta1.HTTPHeaderMatch"
                     }
                 }
             },
