@@ -80,9 +80,7 @@ type SidecarSetSpec struct {
 	RevisionHistoryLimit *int32 `json:"revisionHistoryLimit,omitempty"`
 
 	// SidecarSet support to inject & in-place update metadata in pod.
-	// +patchMergeKey=patchPolicy
-	// +patchStrategy=merge
-	PatchPodMetadata []SidecarSetPatchPodMetadata `json:"patchPodMetadata,omitempty" patchStrategy:"merge" patchMergeKey:"patchPolicy"`
+	PatchPodMetadata []SidecarSetPatchPodMetadata `json:"patchPodMetadata,omitempty"`
 }
 
 type SidecarSetPatchPodMetadata struct {

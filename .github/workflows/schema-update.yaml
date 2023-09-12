@@ -1,19 +1,16 @@
 name: Update schema files when api changes
 
 on:
-  pull_request_target:
-    types:
-      - closed
+  push:
     branches:
       - master
     paths:
-      - 'app/**'
+      - 'apps/**'
       - 'policy/**'
       - 'rollouts/**'
 
 jobs:
-  update-schemas-if-merged:
-    if: github.event.pull_request.merged == true
+  update-schemas:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
